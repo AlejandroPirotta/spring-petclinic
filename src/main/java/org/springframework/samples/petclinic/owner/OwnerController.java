@@ -17,6 +17,10 @@ package org.springframework.samples.petclinic.owner;
 
 import java.util.List;
 import java.util.Map;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -48,6 +52,9 @@ class OwnerController {
 	private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
 
 	private final OwnerRepository owners;
+
+	@Autowired
+	private EntityManager entityManager;
 
 	public OwnerController(OwnerRepository clinicService) {
 		this.owners = clinicService;
@@ -160,6 +167,20 @@ class OwnerController {
 		Owner owner = this.owners.findById(ownerId);
 		mav.addObject(owner);
 		return mav;
+	}
+
+	@GetMapping("/ownersVuln/{ownerId}")
+	public ModelAndView showOwnerVuln(@PathVariable("ownerId") int ownerId) {
+		ModelAndView mav = new ModelAndView("owners/ownerDetails");
+		String query = "SELECT * FROM owners WHERE id = " + ownerId;
+		Owner owner = entityManager.createQuery(query, Owner.class).getSingleResult();
+		mav.addObject("owner", owner);
+		return mav;
+	}
+
+	public String getSessionId(HttpServletRequest request) {
+		String sessionId = request.getRequestedSessionId();
+		return sessionId;
 	}
 
 }

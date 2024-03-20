@@ -129,6 +129,17 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>3.12.4</version> <!-- You can use the latest version -->
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>4.18.1</version>
+    </dependency>
+    <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>mysql</artifactId>
       <scope>test</scope>
@@ -218,7 +229,7 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
         <executions>
           <execution>
-            <!-- Spring Boot Actuator displays build-related information 
+            <!-- Spring Boot Actuator displays build-related information
               if a META-INF/build-info.properties file is present -->
             <goals>
               <goal>build-info</goal>
@@ -246,7 +257,7 @@
           </execution>
           <execution>
             <id>report</id>
-            <phase>prepare-package</phase>
+            <phase>test</phase>
             <goals>
               <goal>report</goal>
             </goals>
@@ -376,7 +387,7 @@
       <build>
         <pluginManagement>
           <plugins>
-            <!-- This plugin's configuration is used to store Eclipse m2e settings 
+            <!-- This plugin's configuration is used to store Eclipse m2e settings
               only. It has no influence on the Maven build itself. -->
             <plugin>
               <groupId>org.eclipse.m2e</groupId>

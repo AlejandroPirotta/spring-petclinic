@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -39,6 +40,9 @@ public class PetClinicIntegrationTests {
 
 	@Autowired
 	private VetRepository vets;
+
+	@Autowired
+	private EntityManager entityManager;
 
 	@Autowired
 	private RestTemplateBuilder builder;

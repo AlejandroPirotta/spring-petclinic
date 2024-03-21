@@ -25,7 +25,7 @@ public class OwnerServiceMockitoTests {
 	}
 
 	@Test
-	public void getOwnerFullName_test() {
+	public void getOwnerFullName_test_validOwner() {
 		Owner owner = new Owner();
 		owner.setId(Integer.valueOf(1));
 		owner.setFirstName("Manuel");
@@ -36,7 +36,14 @@ public class OwnerServiceMockitoTests {
 
 		Mockito.when(ownerRepository.findById(1)).thenReturn(owner);
 		String fullName = this.ownerService.getOwnerFullName(1);
-		assertEquals("Nombre completo debería ser: ", "Manuel Del Test", fullName);
+		assertEquals("El nombre completo debería ser: ", "Manuel Del Test", fullName);
+	}
+
+	@Test
+	public void getOwnerFullName_test_invalidOwner() {
+		Mockito.when(ownerRepository.findById(1)).thenReturn(null);
+		String fullName = this.ownerService.getOwnerFullName(1);
+		assertEquals("El nombre devuelto debería ser: ", "No se encontró al dueño", fullName);
 	}
 
 }
